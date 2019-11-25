@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        binding.setLifecycleOwner(this);
+
         HelloViewModel viewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
 
         binding.setHelloViewModel(viewModel);

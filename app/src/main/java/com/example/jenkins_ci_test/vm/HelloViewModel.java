@@ -1,6 +1,5 @@
 package com.example.jenkins_ci_test.vm;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.jenkins_ci_test.domain.usecase.HelloUseCase;
@@ -13,13 +12,13 @@ public class HelloViewModel extends BaseViewModel implements HelloUseCase.HelloU
 
     public HelloViewModel()
     {
-        setSalutation("");
+        setSalutation("Starting");
 
         salutationsLoadingUseCase = new HelloUseCase();
         salutationsLoadingUseCase.setCallback(this);
     }
 
-    public void loadSalutation()
+    public void loadNextSalutation()
     {
         salutationsLoadingUseCase.runAsync();
     }
@@ -30,7 +29,7 @@ public class HelloViewModel extends BaseViewModel implements HelloUseCase.HelloU
             this.salutation = new MutableLiveData<>();
         }
 
-        this.salutation.setValue(salutation);
+        this.salutation.postValue(salutation);
     }
 
     public MutableLiveData<String> getSalutation()
