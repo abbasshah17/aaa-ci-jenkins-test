@@ -6,42 +6,105 @@
     >
     <data>
         <variable
-            name="helloViewModel"
-            type="com.example.jenkins_ci_test.vm.HelloViewModel" />
+            name="loginViewModel"
+            type="com.example.jenkins_ci_test.vm.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
 
-        <TextView
-            android:id="@+id/hello_textView"
-            android:layout_width="wrap_content"
+        tools:context=".MainActivity"
+        >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideline"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
 
-            android:text="@={helloViewModel.getSalutation()}"
+            app:layout_constraintGuide_percent="0.5"
             />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_input_layout_email"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/login_hint_email"
+            android:textColorHint="#D3D3D3"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline">
+
+            <EditText
+                android:id="@+id/input_email"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="textEmailAddress"
+
+                android:paddingBottom="10dp"
+
+                android:text="@={loginViewModel.username}"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/login_input_layout_password"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+
+            android:textColorHint="#D3D3D3"
+            android:hint="@string/login_password_hint"
+
+            app:layout_constraintTop_toBottomOf="@id/login_input_layout_email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <EditText
+                android:id="@+id/input_password"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:inputType="textPassword"
+
+                android:paddingBottom="10dp"
+
+                android:text="@={loginViewModel.password}"
+                android:textColor="@color/colorAccent"
+                android:textSize="22sp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/salutationsButton"
+            android:id="@+id/login_button"
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:padding="10dp"
-            android:text="@string/nextSalutationButtonText"
+            android:layout_marginTop="30dp"
 
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/login_button_text"
+
+            app:layout_constraintTop_toBottomOf="@id/login_input_layout_password"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
 
-            android:onClick="@{(v)->helloViewModel.loadSalutation()}"
+            android:onClick="@{(v)->loginViewModel.onLoginClick()}"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import com.example.jenkins_ci_test.databinding.ActivityMainBinding;
 import com.example.jenkins_ci_test.vm.HelloViewModel;
+import com.example.jenkins_ci_test.vm.LoginViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
         binding.setLifecycleOwner(this);
 
-        HelloViewModel viewModel = ViewModelProviders.of(this).get(HelloViewModel.class);
+        LoginViewModel viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
-        binding.setHelloViewModel(viewModel);
+        binding.setLoginViewModel(viewModel);
     }
 }
