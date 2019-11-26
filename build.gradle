@@ -56,8 +56,11 @@ ext {
     htextview_version_code = 10
     htextview_version_name = "0.1.6"
 
+    okhttpVersion = "3.6.0"
+    retrofitVersion = "2.4.0"
+
     //  Unit-Test
     junit = "4.12"
-    androidx_runner = "1.2.0"
+    androidx_runner = "1.1.0"
     androidx_espresso = "3.2.0"
 }

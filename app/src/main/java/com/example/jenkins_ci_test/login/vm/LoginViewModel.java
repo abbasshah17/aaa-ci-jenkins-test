@@ -1,9 +1,16 @@
-package com.example.jenkins_ci_test.vm;
+package com.example.jenkins_ci_test.login.vm;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.jenkins_ci_test.base.vm.BaseViewModel;
+import com.example.jenkins_ci_test.login.di.scopes.LoginScope;
+import com.example.jenkins_ci_test.login.domain.usecases.LoginTask;
+
+import javax.inject.Inject;
+
+@LoginScope
 public class LoginViewModel extends BaseViewModel {
 
     private static final String TAG = "LoginViewModel";
@@ -11,8 +18,13 @@ public class LoginViewModel extends BaseViewModel {
     private MutableLiveData<String> username;
     private MutableLiveData<String> password;
 
-    public LoginViewModel()
+    private LoginTask loginTask;
+
+    @Inject
+    public LoginViewModel(LoginTask loginTask)
     {
+        this.loginTask = loginTask;
+
         username = new MutableLiveData<>("");
         password = new MutableLiveData<>("");
     }
@@ -50,6 +62,6 @@ public class LoginViewModel extends BaseViewModel {
         Log.d(TAG, "onLoginClick: Username ='" + getUsername().getValue() + "', Password ='"
                 + getPassword().getValue());
 
-
+        loginTask.performLogin(getUsername().getValue(), getPassword().getValue());
     }
 }
