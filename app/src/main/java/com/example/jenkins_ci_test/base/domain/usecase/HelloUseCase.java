@@ -1,9 +1,7 @@
-package com.example.jenkins_ci_test.domain.usecase;
+package com.example.jenkins_ci_test.base.domain.usecase;
 
-import android.app.Application;
-
-import com.example.jenkins_ci_test.domain.repository.Repository;
-import com.example.jenkins_ci_test.domain.repository.SalutationsRepository;
+import com.example.jenkins_ci_test.base.domain.repository.Repository;
+import com.example.jenkins_ci_test.base.domain.repository.SalutationsRepository;
 
 public class HelloUseCase extends UseCase<String> {
 

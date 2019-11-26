@@ -1,6 +1,5 @@
-package com.example.jenkins_ci_test.domain.usecase;
+package com.example.jenkins_ci_test.base.domain.usecase;
 
-import android.app.Application;
 import android.os.Handler;
 
 public abstract class UseCase<T> implements Task<T> {

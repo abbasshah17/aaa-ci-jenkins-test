@@ -7,14 +7,14 @@
     <data>
         <variable
             name="loginViewModel"
-            type="com.example.jenkins_ci_test.vm.LoginViewModel" />
+            type="com.example.jenkins_ci_test.login.vm.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context=".MainActivity"
+        tools:context=".login.views.MainActivity"
         >
 
         <androidx.constraintlayout.widget.Guideline

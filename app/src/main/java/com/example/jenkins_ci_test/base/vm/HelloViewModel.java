@@ -1,8 +1,8 @@
-package com.example.jenkins_ci_test.vm;
+package com.example.jenkins_ci_test.base.vm;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.jenkins_ci_test.domain.usecase.HelloUseCase;
+import com.example.jenkins_ci_test.base.domain.usecase.HelloUseCase;
 
 public class HelloViewModel extends BaseViewModel implements HelloUseCase.HelloUseCaseCallback {
 

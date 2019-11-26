@@ -1,10 +1,8 @@
-package com.example.jenkins_ci_test.vm;
-
-import android.app.Application;
+package com.example.jenkins_ci_test.base.vm;
 
 import androidx.lifecycle.ViewModel;
 
-abstract class BaseViewModel extends ViewModel {
+public abstract class BaseViewModel extends ViewModel {
 
     public BaseViewModel()
     {
