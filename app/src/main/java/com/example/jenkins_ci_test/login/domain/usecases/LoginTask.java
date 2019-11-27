@@ -23,7 +23,7 @@ public class LoginTask extends RetrofitTask<LoginApi, LoginResponseModel> {
     @Override
     protected Call<LoginResponseModel> getCall(LoginApi loginApi)
     {
-        return loginApi.api(LoginApi.LOGIN_URL, username, password);
+        return loginApi.loginUser(LoginApi.LOGIN_URL, username, password);
     }
 
 

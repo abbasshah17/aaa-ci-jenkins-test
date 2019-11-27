@@ -10,12 +10,10 @@ import retrofit2.http.Url;
 
 public interface LoginApi {
 
-    //  TODO : Provide a valid url.
-    String LOGIN_URL = "http://";
+    String LOGIN_URL = "http://ec2-34-201-54-35.compute-1.amazonaws.com/user_login.php";
 
-    @Headers("Cache-Control: no-cache")
     @GET
-    Call<LoginResponseModel> api(
+    Call<LoginResponseModel> loginUser(
             @Url String url,
             @Header("USERNAME") String username,
             @Header("PASSWORD") String password

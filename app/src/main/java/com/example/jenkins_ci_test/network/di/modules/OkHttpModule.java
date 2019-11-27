@@ -2,6 +2,7 @@ package com.example.jenkins_ci_test.network.di.modules;
 
 import com.example.jenkins_ci_test.BuildConfig;
 import com.example.jenkins_ci_test.jenkins_ci_test.di.scopes.JcitScope;
+import com.example.jenkins_ci_test.network.interceptor.OkHttpInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +16,7 @@ public abstract class OkHttpModule {
 
     @JcitScope
     @Provides
-    public static OkHttpClient providesOkHttpClient()
+    public static OkHttpClient providesOkHttpClient(OkHttpInterceptor interceptor)
     {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -28,9 +29,11 @@ public abstract class OkHttpModule {
             httpClient.addInterceptor(logging);// add logging as last interceptor
         }
 
-        httpClient.connectTimeout(1, TimeUnit.MINUTES);
-        httpClient.writeTimeout(1, TimeUnit.MINUTES);
-        httpClient.readTimeout(1, TimeUnit.MINUTES);
+        httpClient.addInterceptor(interceptor);
+
+        httpClient.connectTimeout(15, TimeUnit.SECONDS);
+        httpClient.writeTimeout(15, TimeUnit.SECONDS);
+        httpClient.readTimeout(15, TimeUnit.SECONDS);
 
 //        httpClient.networkInterceptors().add(REWRITE_CACHE_CONTROL_INTERCEPTOR);
 

@@ -48,7 +48,7 @@ public abstract class RetrofitTask <Api, Result> extends BackgroundTask<Result> 
             // Since we're already running on Background Thread.
             return call.execute().body();
         }
-        catch (IOException ex) {
+        catch (IOException | RuntimeException ex) {
             Log.d(TAG, "run-Error: " + ex.getMessage(), ex);
         }
 

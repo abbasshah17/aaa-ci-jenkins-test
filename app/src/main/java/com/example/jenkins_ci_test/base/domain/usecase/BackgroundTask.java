@@ -4,12 +4,16 @@ import android.os.AsyncTask;
 
 public abstract class BackgroundTask<T> extends AsyncTask<Object, Void, T> implements Task<T> {
 
+    private static final String TAG = "BackgroundTask";
+
     protected ResultCallback<T> mCallback;
 
 
     public void runBackground()
     {
-        execute();
+        if (super.getStatus() == Status.PENDING) {
+            execute();
+        }
     }
 
     public void setCallback(ResultCallback callback)
