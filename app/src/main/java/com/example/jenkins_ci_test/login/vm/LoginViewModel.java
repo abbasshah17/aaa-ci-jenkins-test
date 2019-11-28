@@ -5,10 +5,12 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.jenkins_ci_test.base.domain.models.login.LoginResponseModel;
-import com.example.jenkins_ci_test.base.domain.usecase.BackgroundTask;
 import com.example.jenkins_ci_test.base.vm.BaseViewModel;
+import com.example.jenkins_ci_test.login.di.names.LivePasswordKey;
+import com.example.jenkins_ci_test.login.di.names.LiveResponseModelKey;
+import com.example.jenkins_ci_test.login.di.names.LiveUsernameKey;
 import com.example.jenkins_ci_test.login.di.scopes.LoginScope;
-import com.example.jenkins_ci_test.login.domain.usecases.LoginTask;
+import com.example.jenkins_ci_test.login.domain.usecases.LoginUseCase;
 
 import javax.inject.Inject;
 
@@ -22,26 +24,25 @@ public class LoginViewModel extends BaseViewModel {
 
     private MutableLiveData<LoginResponseModel> loginResponse;
 
-    private LoginTask loginTask;
+    private LoginUseCase loginUseCase;
+
 
     @Inject
-    public LoginViewModel(LoginTask loginTask)
+    LoginViewModel(LoginUseCase loginUseCase,
+                          @LiveUsernameKey MutableLiveData<String> username,
+                          @LivePasswordKey MutableLiveData<String> password,
+                          @LiveResponseModelKey MutableLiveData<LoginResponseModel> loginResponseModel)
     {
-        this.loginTask = loginTask;
+        this.loginUseCase = loginUseCase;
 
-        //  TODO : Obtain via dagger.
-        username = new MutableLiveData<>();
-        password = new MutableLiveData<>();
+        this.username = username;
+        this.password = password;
 
-        loginResponse = new MutableLiveData<>();
+        loginResponse = loginResponseModel;
     }
 
     public void setUsername(String username)
     {
-        if (this.username == null) {
-            this.username = new MutableLiveData<>();
-        }
-
         this.username.postValue(username);
     }
 
@@ -52,10 +53,6 @@ public class LoginViewModel extends BaseViewModel {
 
     public void setPassword(String password)
     {
-        if (this.password == null) {
-            this.password = new MutableLiveData<>();
-        }
-        
         this.password.postValue(password);
     }
 
@@ -66,10 +63,6 @@ public class LoginViewModel extends BaseViewModel {
 
     public void setLoginResponse(LoginResponseModel loginResponse)
     {
-        if (this.loginResponse == null) {
-            this.loginResponse = new MutableLiveData<>();
-        }
-
         this.loginResponse.postValue(loginResponse);
     }
 
@@ -80,20 +73,14 @@ public class LoginViewModel extends BaseViewModel {
 
     public void onLoginClick()
     {
-        Log.d(TAG, "onLoginClick: Username ='" + getUsername().getValue() + "', Password ='"
-                + getPassword().getValue());
+//        Log.d(TAG, "onLoginClick: Username ='" + getUsername().getValue() + "', Password ='"
+//                + getPassword().getValue());
 
-        loginTask.setCallback(loginResponseModelResultCallback);
-        loginTask.performLogin(getUsername().getValue(), getPassword().getValue());
-    }
-
-    private BackgroundTask.ResultCallback<LoginResponseModel> loginResponseModelResultCallback = new BackgroundTask.ResultCallback<LoginResponseModel>() {
-        @Override
-        public void onResult(LoginResponseModel result)
-        {
+        loginUseCase.subscribe((result -> {
             Log.d(TAG, "onResult: " + result);
 
             setLoginResponse(result);
-        }
-    };
+        }));
+        loginUseCase.performLogin(getUsername().getValue(), getPassword().getValue());
+    }
 }

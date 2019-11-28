@@ -1,4 +1,4 @@
-package com.example.jenkins_ci_test.base.domain.usecase;
+package com.example.jenkins_ci_test.base.domain.repository;
 
 import android.util.Log;
 
@@ -17,7 +17,6 @@ public abstract class RetrofitTask <Api, Result> extends BackgroundTask<Result> 
     Retrofit retrofit_2_0;
 
     private Class<? extends Api> clazz;
-
 
 
     public RetrofitTask()

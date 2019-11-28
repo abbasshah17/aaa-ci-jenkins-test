@@ -42,7 +42,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
             return (T) creator.get();
         }
         catch (Exception ex) {
-            throw new RuntimeException("Error occurred while attempting to create '" + modelClass + "'.'");
+            throw new RuntimeException("Error occurred while attempting to create '" + modelClass + "'.'", ex);
         }
     }
 }

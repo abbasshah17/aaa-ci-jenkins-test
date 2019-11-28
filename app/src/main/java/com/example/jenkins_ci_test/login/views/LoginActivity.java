@@ -10,7 +10,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jenkins_ci_test.R;
-import com.example.jenkins_ci_test.base.domain.models.login.LoginResponseModel;
 import com.example.jenkins_ci_test.base.vm.ViewModelFactory;
 import com.example.jenkins_ci_test.databinding.ActivityMainBinding;
 import com.example.jenkins_ci_test.jenkins_ci_test.app.JCITApplication;
@@ -49,23 +48,20 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.setLoginViewModel(viewModel);
 
-        viewModel.getLoginResponse().observe(this, new Observer<LoginResponseModel>() {
-            @Override
-            public void onChanged(LoginResponseModel loginResponseModel) {
+        viewModel.getLoginResponse().observe(this, loginResponseModel -> {
 
-                String toastMessage = "Unknown response format";
+            String toastMessage = "Unknown response format";
 
-                if (loginResponseModel == null || loginResponseModel.getStatus().equalsIgnoreCase("failure")) {
-                    toastMessage = "Failure : " + (loginResponseModel == null ? null : loginResponseModel.getMessage());
-                }
-                else if (loginResponseModel.getStatus().equalsIgnoreCase("success")) {
-                    toastMessage = "Success : " + loginResponseModel.getMessage();
-                }
-
-                Log.d(TAG, toastMessage);
-                
-                Toast.makeText(LoginActivity.this, toastMessage, Toast.LENGTH_LONG).show();
+            if (loginResponseModel == null || loginResponseModel.getStatus().equalsIgnoreCase("failure")) {
+                toastMessage = "Failure : " + (loginResponseModel == null ? null : loginResponseModel.getMessage());
             }
+            else if (loginResponseModel.getStatus().equalsIgnoreCase("success")) {
+                toastMessage = "Success : " + loginResponseModel.getMessage();
+            }
+
+            Log.d(TAG, toastMessage);
+
+            Toast.makeText(LoginActivity.this, toastMessage, Toast.LENGTH_LONG).show();
         });
     }
 }

@@ -1,27 +1,62 @@
 package com.example.jenkins_ci_test.base.domain.usecase;
 
-import android.os.Handler;
+import android.util.Log;
 
-public abstract class UseCase<T> implements Task<T> {
+import com.example.jenkins_ci_test.base.domain.repository.Task;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+public abstract class UseCase <T> {
+
+    private static final String TAG = "UseCase";
+
+    private Callback<T> mCallback;
+
+    @Inject
+    List<Task> tasks;
 
 
     public UseCase()
     {
     }
 
-    public void runAsync()
+    public void subscribe(Callback<T> callback)
     {
-        Handler mHandler = new Handler();
-
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                T response  = UseCase.this.run();
-
-                respond(response);
-            }
-        });
+        mCallback = callback;
     }
 
-    protected abstract void respond(T response);
+    protected void addTask(Task task)
+    {
+        if (tasks == null) {
+            Log.e(TAG, "addTask: tasks is null. Dagger has not injected List<Tasks>");
+            return;
+        }
+
+        tasks.add(task);
+    }
+
+    protected void notifyComplete(T result)
+    {
+        if (mCallback != null) {
+            mCallback.onComplete(result);
+        }
+    }
+
+    protected void cancelTasks()
+    {
+        for (Task task : tasks) {
+            task.stop();
+        }
+    }
+
+    public void clear()
+    {
+        cancelTasks();
+    }
+
+    public interface Callback<T> {
+        void onComplete(T result);
+    }
 }

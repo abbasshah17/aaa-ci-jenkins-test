@@ -1,8 +1,8 @@
-package com.example.jenkins_ci_test.login.domain.usecases;
+package com.example.jenkins_ci_test.login.domain.repository;
 
 import com.example.jenkins_ci_test.base.domain.api.login.LoginApi;
 import com.example.jenkins_ci_test.base.domain.models.login.LoginResponseModel;
-import com.example.jenkins_ci_test.base.domain.usecase.RetrofitTask;
+import com.example.jenkins_ci_test.base.domain.repository.RetrofitTask;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,6 @@ public class LoginTask extends RetrofitTask<LoginApi, LoginResponseModel> {
     {
         return loginApi.loginUser(LoginApi.LOGIN_URL, username, password);
     }
-
 
     public void performLogin(String username, String password)
     {
