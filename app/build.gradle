@@ -39,6 +39,10 @@ android {
         // Changes the directory where Gradle saves test results. By default, Gradle saves test results
         // in the path_to_your_project/module_name/build/outputs/test-results/ directory.
         // '$rootDir' sets the path relative to the root directory of the current project.
+
+        //  Disabling animations
+        animationsDisabled = true
+
         resultsDir "$rootDir/test-results"
 
         unitTests {
@@ -60,9 +64,11 @@ android {
                 }
             }
         }
-
     }
 
+    useLibrary "android.test.runner"
+    useLibrary "android.test.base"
+    useLibrary "android.test.mock"
 }
 
 dependencies {
@@ -86,7 +92,33 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.retrofitVersion}"
 
     testImplementation "junit:junit:${rootProject.ext.junit}"
+
     testImplementation "org.mockito:mockito-core:${rootProject.ext.mockito}"
+
+    //  Core Library
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.androidx_runner}"
+    androidTestImplementation "androidx.test:core:${rootProject.ext.androidx_core}"
+
+    //  Android JUnitRunner and JUnit Rules
+    androidTestImplementation "androidx.test:runner:${rootProject.ext.androidx_runner}"
+    androidTestImplementation "androidx.test:rules:${rootProject.ext.androidx_runner}"
+
+    //  Assertions
+    androidTestImplementation "androidx.test.ext:truth:${rootProject.ext.androidx_assertions}"
+    androidTestImplementation "com.google.truth:truth:${rootProject.ext.google_assertions}"
+
+    //  Hamcrest
+    androidTestImplementation "org.hamcrest:hamcrest-library:${rootProject.ext.hamcrest}"
+
+    //  Mockito
+    androidTestImplementation "org.mockito:mockito-core:${rootProject.ext.mockito}"
+
+    //  Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-accessibility:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-web:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:${rootProject.ext.androidx_espresso}"
+    androidTestImplementation "androidx.test.espresso:espresso-idling-resource:${rootProject.ext.androidx_espresso}"
 }
