@@ -12,15 +12,18 @@ pipeline {
          steps {
              echo 'cleaning repo previous builds'
              sh './gradlew clean'
-//             sh ls -lah
-//             sh ls
+         }
+      }
+      stage ('unit-test') {
+         steps {
+             echo 'running unit tests'.
+             sh './gradlew test'
          }
       }
       stage('build') {
          steps {
              echo 'building project'
-//             sh ./gradlew test
-//             sh ./gradlew assembleRelease
+             sh './gradlew assembleRelease'
          }
       }
       
