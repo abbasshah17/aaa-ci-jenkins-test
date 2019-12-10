@@ -8,10 +8,13 @@ pipeline {
              git 'https://github.com/abbasshah17/aaa-ci-jenkins-test'
          }
       }
-      stage('build') {
+      stage('clean') {
          steps {
+             echo 'cleaning repo previous builds'.
              gradlew clean
          }
+      }
+      stage('build') {
          steps {
              echo 'building project'
              gradlew test
