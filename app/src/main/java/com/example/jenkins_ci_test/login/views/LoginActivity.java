@@ -2,14 +2,15 @@ package com.example.jenkins_ci_test.login.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.jenkins_ci_test.R;
+import com.example.jenkins_ci_test.base.domain.models.login.LoginResponseModel;
 import com.example.jenkins_ci_test.base.vm.ViewModelFactory;
 import com.example.jenkins_ci_test.databinding.ActivityMainBinding;
 import com.example.jenkins_ci_test.jenkins_ci_test.app.JCITApplication;
@@ -34,6 +35,11 @@ public class LoginActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
 
+        onLaunch();
+    }
+
+    void onLaunch()
+    {
         jcitApplication = (JCITApplication) getApplication();
 
         loginComponent = jcitApplication.getJcitComponent().getLoginComponentBuilder().build();
@@ -48,20 +54,24 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.setLoginViewModel(viewModel);
 
-        viewModel.getLoginResponse().observe(this, loginResponseModel -> {
-
-            String toastMessage = "Unknown response format";
-
-            if (loginResponseModel == null || loginResponseModel.getStatus().equalsIgnoreCase("failure")) {
-                toastMessage = "Failure : " + (loginResponseModel == null ? null : loginResponseModel.getMessage());
-            }
-            else if (loginResponseModel.getStatus().equalsIgnoreCase("success")) {
-                toastMessage = "Success : " + loginResponseModel.getMessage();
-            }
-
-            Log.d(TAG, toastMessage);
-
-            Toast.makeText(LoginActivity.this, toastMessage, Toast.LENGTH_LONG).show();
+        viewModel.getLoginResponse().observe(this, (response) -> {
+            onLoginSuccess(LoginActivity.this, response);
         });
+    }
+
+    void onLoginSuccess(Context context, LoginResponseModel loginResponseModel)
+    {
+        String toastMessage = "Invalid response format";
+
+        if (loginResponseModel == null || loginResponseModel.getStatus().equalsIgnoreCase("failure")) {
+            toastMessage = "Failure : " + (loginResponseModel == null ? null : loginResponseModel.getMessage());
+        }
+        else if (loginResponseModel.getStatus().equalsIgnoreCase("success")) {
+            toastMessage = "Success : " + loginResponseModel.getMessage();
+        }
+
+        Log.d(TAG, toastMessage);
+
+        Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
     }
 }
