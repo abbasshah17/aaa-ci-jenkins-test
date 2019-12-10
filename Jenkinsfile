@@ -32,11 +32,23 @@ pipeline {
               echo 'testing'
           }
       }
-      
-      stage ('deploy') {
-          steps {
-              echo 'Deploying'
-          }
+   }
+
+   post {
+      success {
+          echo 'Successful'
+      }
+      failure {
+         echo 'failure'
+      }
+      unstable {
+         echo 'unstable'
+      }
+      cleanup {
+         echo 'clean up'
+      }
+      changed {
+         echo 'status changed'
       }
    }
 }
