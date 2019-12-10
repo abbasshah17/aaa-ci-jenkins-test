@@ -19,7 +19,6 @@ pipeline {
              echo 'building project'
              sh ./gradlew test
              sh ./gradlew assembleRelease
-            // build job: 'AAA-JenkinsCI-Test', quietPeriod: 5
          }
       }
       
