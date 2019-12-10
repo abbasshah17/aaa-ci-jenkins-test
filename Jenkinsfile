@@ -11,14 +11,14 @@ pipeline {
       stage('clean') {
          steps {
              echo 'cleaning repo previous builds'
-             sh ./gradlew clean
+             sh gradlew clean
          }
       }
       stage('build') {
          steps {
              echo 'building project'
-             sh ./gradlew test
-             sh ./gradlew assembleRelease
+//             sh ./gradlew test
+//             sh ./gradlew assembleRelease
          }
       }
       
