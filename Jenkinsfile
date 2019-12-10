@@ -9,8 +9,8 @@ pipeline {
          }
          steps {
              echo 'building project'
-             ./gradlew test
-             ./gradlew assembleRelease
+             gradlew test
+             gradlew assembleRelease
             // build job: 'AAA-JenkinsCI-Test', quietPeriod: 5
          }
       }
