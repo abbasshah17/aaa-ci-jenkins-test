@@ -16,7 +16,7 @@ pipeline {
       }
       stage ('unit-test') {
          steps {
-             echo 'running unit tests'.
+             echo 'running unit tests'
              sh './gradlew test'
          }
       }
