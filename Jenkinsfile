@@ -11,14 +11,14 @@ pipeline {
       stage('clean') {
          steps {
              echo 'cleaning repo previous builds'
-             gradlew clean
+             sh ./gradlew clean
          }
       }
       stage('build') {
          steps {
              echo 'building project'
-             gradlew test
-             gradlew assembleRelease
+             sh ./gradlew test
+             sh ./gradlew assembleRelease
             // build job: 'AAA-JenkinsCI-Test', quietPeriod: 5
          }
       }
