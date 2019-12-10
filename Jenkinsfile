@@ -10,7 +10,7 @@ pipeline {
       }
       stage('clean') {
          steps {
-             echo 'cleaning repo previous builds'.
+             echo 'cleaning repo previous builds'
              gradlew clean
          }
       }
