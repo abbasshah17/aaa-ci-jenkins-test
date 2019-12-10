@@ -11,7 +11,7 @@ pipeline {
       stage('clean') {
          steps {
              echo 'cleaning repo previous builds'
-             sh gradlew clean
+             sh ls
          }
       }
       stage('build') {
