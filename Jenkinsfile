@@ -13,6 +13,20 @@ pipeline {
             build 'DemoAppTest'
          }
       }
+      stage ('instrument-tests' {
+         parallel {
+            stage ('launch-avd') {
+               steps {
+                  build 'StartAppiumEmulator'
+               }
+            }
+            stage ('ui-test') {
+               steps {
+                  build job: 'LoginAppTests', quietPeriod: 30
+               }
+            }
+         }
+      }
 //      stage ('instrument-tests') {
 //         parallel {
 //             stage ('launch-avd') {
@@ -40,7 +54,7 @@ pipeline {
          echo 'unstable'
       }
       cleanup {
-         echo 'clean up'
+         build 'StopAppiumEmulator'
       }
       changed {
          echo 'status changed'
