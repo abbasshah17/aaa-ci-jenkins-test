@@ -3,6 +3,11 @@ pipeline {
    agent any
 
    stages {
+      stage('pull') {
+         steps {
+             git 'https://github.com/abbasshah17/aaa-ci-jenkins-test'
+         }
+      }
       stage('build') {
          steps {
              ./gradlew clean
