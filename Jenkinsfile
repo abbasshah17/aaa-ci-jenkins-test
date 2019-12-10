@@ -11,7 +11,8 @@ pipeline {
       stage('clean') {
          steps {
              echo 'cleaning repo previous builds'
-             sh ls
+             sh ls -lah
+//             sh ls
          }
       }
       stage('build') {
