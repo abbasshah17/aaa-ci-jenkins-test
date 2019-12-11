@@ -1,4 +1,3 @@
-//Checking push An update number 5
 pipeline {
    agent any
 
@@ -10,17 +9,23 @@ pipeline {
       }
       stage ('unit-test') {
          steps {
-             echo 'running unit tests'
-             build 'DemoAppTest'
+             steps {
+                 echo 'running unit tests'
+                 build 'DemoAppTest'
+             }
          }
       }
       stage ('instrument-tests') {
          parallel {
              stage ('launch-avd') {
-                 build 'AVD_Job'
+                 steps {
+                     build 'AVD_Job'
+                 }
              }
              stage ('run-instrument-tests') {
-                 build 'DemoAppInstrumentTests'
+                 steps {
+                     build job 'DemoAppInstrumentTests' quietPeriod=900
+                 }
              }
          }
       }
