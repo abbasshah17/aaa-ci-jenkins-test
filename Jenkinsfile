@@ -3,34 +3,26 @@ pipeline {
    agent any
 
    stages {
-      stage('pull') {
+      stage('build') {
          steps {
-             git 'https://github.com/abbasshah17/aaa-ci-jenkins-test'
-         }
-      }
-      stage('clean') {
-         steps {
-             echo 'cleaning repo previous builds'
-             sh './gradlew clean'
+             build 'DemoAppBuild'
          }
       }
       stage ('unit-test') {
          steps {
              echo 'running unit tests'
-             sh './gradlew test'
+             build 'DemoAppTest'
          }
       }
-      stage('build') {
-         steps {
-             echo 'building project'
-             sh './gradlew assembleRelease'
+      stage ('instrument-tests') {
+         parallel {
+             stage ('launch-avd') {
+                 build 'AVD_Job'
+             }
+             stage ('run-instrument-tests') {
+                 build 'DemoAppInstrumentTests'
+             }
          }
-      }
-      
-      stage ('test') {
-          steps {
-              echo 'testing'
-          }
       }
    }
 
