@@ -24,7 +24,7 @@ pipeline {
              }
              stage ('run-instrument-tests') {
                  steps {
-                     build job 'DemoAppInstrumentTests' quietPeriod=900
+                     build job: 'DemoAppInstrumentTests', quietPeriod: 900
                  }
              }
          }
