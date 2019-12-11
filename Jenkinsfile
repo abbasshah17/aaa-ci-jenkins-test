@@ -9,10 +9,8 @@ pipeline {
       }
       stage ('unit-test') {
          steps {
-             steps {
-                 echo 'running unit tests'
-                 build 'DemoAppTest'
-             }
+            echo 'running unit tests'
+            build 'DemoAppTest'
          }
       }
 //      stage ('instrument-tests') {
