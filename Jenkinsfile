@@ -25,11 +25,6 @@ pipeline {
                   build job: 'LoginAppTests', quietPeriod: 30
                }
             }
-            post {
-               cleanup {
-                  build 'StopAppiumEmulator'
-               }
-            }
          }
       }
 //      stage ('instrument-tests') {
@@ -59,7 +54,7 @@ pipeline {
          echo 'unstable'
       }
       cleanup {
-         echo 'clean up'
+         build 'StopAppiumEmulator'
       }
       changed {
          echo 'status changed'
