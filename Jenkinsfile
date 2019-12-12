@@ -15,7 +15,7 @@ pipeline {
             build 'DemoAppTest'
          }
       }
-      stage ('instrument-tests' {
+      stage ('instrument-tests') {
          parallel {
             stage ('launch-avd') {
                steps {
@@ -29,20 +29,6 @@ pipeline {
             }
          }
       }
-//      stage ('instrument-tests') {
-//         parallel {
-//             stage ('launch-avd') {
-//                 steps {
-//                     build 'AVD_Job'
-//                 }
-//             }
-//             stage ('run-instrument-tests') {
-//                 steps {
-//                     build job: 'DemoAppInstrumentTests', quietPeriod: 900
-//                 }
-//             }
-//         }
-///      }
    }
 
    post {
