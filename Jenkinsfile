@@ -1,3 +1,5 @@
+// Checking Github Web hook.
+
 pipeline {
    agent any
 
