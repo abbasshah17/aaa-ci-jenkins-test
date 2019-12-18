@@ -20,7 +20,5 @@ jobs:
         echo test, and deploy your project.
     - name: Creating APK
       run: ./gradlew assembleRelease
-    - name: "Run UI Tests"
-      uses: vgaidarji/android-github-actions-emulator@v1.0.1
     - name: Connected tests
-      run: ./gradlew connectedTest
+      run: ./gradlew test
